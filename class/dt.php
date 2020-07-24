@@ -124,7 +124,13 @@ class dt extends goc
         $email = $this->db->escape_string(trim(strip_tags($_SESSION['DonHang']['email'])));
         $pttt = $this->db->escape_string(trim(strip_tags($_SESSION['DonHang']['payment'])));
         $ptgh = $this->db->escape_string(trim(strip_tags($_SESSION['DonHang']['delivery'])));
-
+        $tongtien = 0;
+        for ($i = 0; $i < count($_SESSION['daySoLuong']); $i++) {
+            $soluong = current($_SESSION['daySoLuong']);
+            $dongia = current($_SESSION['dayDonGia']);
+            $tien = $dongia * $soluong;
+            $tongtien += $tien;
+        }
         //kiểm tra dữ liệu
         if (count($_SESSION['daySoLuong']) == 0) $error[] = "Bạn chưa chọn sản phẩm nào cả";
         if ($hoten == "") $error[] = "Bạn chưa nhập họ tên";
@@ -143,6 +149,7 @@ class dt extends goc
             idpttt='$pttt',
             idptgh='$ptgh',
             email='$email',
+            tongtien='$tongtien',
             thoidiemdathang= now() ";
             $kq = $this->db->query($sql);
             if (!$kq) die($this->db->error);
@@ -156,6 +163,7 @@ class dt extends goc
             idpttt='$pttt',
             idptgh='$ptgh',
             email='$email',
+            tongtien='$tongtien',
             thoidiemdathang= now()
             WHERE idDH= $idDH ";
             $kq = $this->db->query($sql);
