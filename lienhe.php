@@ -35,6 +35,7 @@
 
                     if ($ht == "") $loi .= "Bạn chưa nhập họ tên<br>";
                     if ($m == "") $loi .= "Bạn chưa nhập email<br>";
+                    if($td == "") $loi .= "Bạn chưa nhập tiêu đề liên hệ<br>";
                     if ($nd == "") $loi .= "Bạn chưa nhập nội dung liên hệ<br>";
                     else if (strlen($nd) <= 10) $loi .= "Nội dung liên hệ quá ngắn<br>";
                     if ($loi == "") {
@@ -57,7 +58,7 @@
                 }
                 ?>
 
-                <div id="thongbaoLH" style="background:#ccc;color:red; padding:20px; text-align:center;line-height:150%; margin-top:10px">
+                <div id="thongbaoLH">
                     <?php
                     if ($loi != "") echo $loi;
                     if (isset($_SESSION['camon']) == true) {
@@ -75,19 +76,19 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="name">Họ Tên</label>
-                                    <input type="text" class="form-control" id="name" name="name">
+                                    <input type="text" class="form-control" id="name" name="name" value="<?php if (isset($_POST['name'])) echo $_POST['name'] ?>">
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="email">Email</label>
-                                    <input type="email" class="form-control" id="email" name="email">
+                                    <input type="email" class="form-control" id="email" name="email" value="<?php if (isset($_POST['email'])) echo $_POST['email'] ?>">
                                 </div>
                             </div>
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label for="subject">Tiêu Đề</label>
-                                    <input type="text" class="form-control" id="subject" name="subject">
+                                    <input type="text" class="form-control" id="subject" name="subject" value="<?php if (isset($_POST['subject'])) echo $_POST['subject'] ?>">
                                 </div>
                             </div>
 
@@ -105,7 +106,7 @@
                                 <div class="form-group">
                                     <img src="captcha.php" align="left" height="46">
                                     <br> <br> <br>
-                                    <input type="text" name="cap" class="form-control" placeholder="Nhập chữ trong hình" value="<?php if (isset($_POST['cap'])) echo $_POST['cap'] ?>">
+                                    <input type="text" name="cap" class="form-control" placeholder="Nhập chữ trong hình" value="<?php if (isset($_POST['cap'])) echo $_POST['cap'] ?>" autocomplete="off">
                                 </div>
                             </div>
 
@@ -161,4 +162,15 @@
     </section>
 
 </div>
+<style>
+    #thongbaoLH {
+        background:#ccc; 
+        padding:20px; 
+        text-align:center;
+        line-height:150%; 
+        margin-top:10px;
+        color: <?php echo ($loi != "") ? 'red': 'blue' . ';' ?>;
+    }
+
+</style>
 <!-- /#contact.container -->
